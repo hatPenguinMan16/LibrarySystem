@@ -1,11 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Main2 {
+    private ArrayList<Book> bookList = new ArrayList<Book>();
+    private InitialBookAdd bookAdd = new InitialBookAdd();
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Main2().createLoginView());
     }
+
 
     private void createLoginView() {
         JFrame frame = new JFrame("Login Window");
@@ -53,6 +58,8 @@ public class Main2 {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
+        bookList = bookAdd.getBookList();
+
         // Top search bar
         JPanel topPanel = new JPanel();
         JTextField searchField = new JTextField(20);
@@ -64,12 +71,12 @@ public class Main2 {
         JPanel boxesContainer = new JPanel();
         boxesContainer.setLayout(new BoxLayout(boxesContainer, BoxLayout.Y_AXIS));
 
-        // Add three titled boxes
-        boxesContainer.add(createSampleBox("Results Box 1"));
-        boxesContainer.add(Box.createRigidArea(new Dimension(0, 15)));
-        boxesContainer.add(createSampleBox("Results Box 2"));
-        boxesContainer.add(Box.createRigidArea(new Dimension(0, 15)));
-        boxesContainer.add(createSampleBox("Results Box 3"));
+        // Add titled boxes
+        for (int bookIdx = 0; bookIdx < bookList.size(); bookIdx++){
+            boxesContainer.add(createSampleBox("Results Box 1", bookIdx));
+            boxesContainer.add(Box.createRigidArea(new Dimension(0, 15)));
+        }
+
 
         JScrollPane scrollPane = new JScrollPane(boxesContainer);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -80,16 +87,17 @@ public class Main2 {
         frame.add(panel);
     }
 
-    private JPanel createSampleBox(String title) {
+    private JPanel createSampleBox(String title, int idx) {
         JPanel boxPanel = new JPanel();
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
         boxPanel.setBorder(BorderFactory.createTitledBorder(title));
 
-        boxPanel.add(new JLabel("Sample Line 1 Sample Line 1 Sample Line 1 Sample Line 1" ));
-        boxPanel.add(new JLabel("Sample Line 2"));
-        boxPanel.add(new JLabel("Sample Line 3"));
-        boxPanel.add(new JLabel("Sample Line 4"));
-        boxPanel.add(new JLabel("Sample Line 5"));
+        boxPanel.add(new JLabel(bookList.get(idx).getTitle()));
+        boxPanel.add(new JLabel(bookList.get(idx).getAuthor()));
+        boxPanel.add(new JLabel(bookList.get(idx).getPages()));
+        boxPanel.add(new JLabel(bookList.get(idx).getLanguage()));
+        boxPanel.add(new JLabel(bookList.get(idx).getYear()));
+        boxPanel.add(new JLabel(bookList.get(idx).getIsbn()));
 
         return boxPanel;
     }

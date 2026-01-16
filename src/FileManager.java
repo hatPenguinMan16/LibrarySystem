@@ -7,18 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileManager {
-    private ArrayList<Book> bookList = new ArrayList<Book>();
-    private ArrayList<User> userList = new ArrayList<User>();
-
-    public ArrayList<Book> getBookList() {
-        getBooks();
-        return bookList;
-    }
-
-    public ArrayList<User> getUserList() {
-        getUsers();
-        return userList;
-    }
 
     Scanner openFile(String name) {
         String path = "src/" + name + ".txt";
@@ -32,51 +20,49 @@ public class FileManager {
         return sc;
     }
 
-    void getBooks() {
-        Scanner sc = openFile("book");
-        //char numLines = 0;
-        while (sc.hasNextLine()){
-            String bookInformation = sc.nextLine();
-            String[] splitData = bookInformation.split("\\|");
-            System.out.println(" " + splitData[1]); // Add list idx  to book class
-
-            // Add to book class
-            Book book = new Book(splitData[0],splitData[1],splitData[2],splitData[3],splitData[4],splitData[5]);
-            bookList.add(book);
-
-        }
-    }
-    void getUsers() {
+    public ArrayList<User> getUsers() {
+        ArrayList<User> userList = new ArrayList<>();
         Scanner sc = openFile("user");
-        //char numLines = 0;
         while (sc.hasNextLine()){
-            String bookInformation = sc.nextLine();
-            String[] splitData = bookInformation.split("\\|");
-            System.out.println(" " + splitData[1]); // Add list idx to users class
-
-            // Add to user class
-            User user = new User(splitData[0],splitData[1]);
-            userList.add(user);
-
+            String userInformation = sc.nextLine();
+            String[] splitData = userInformation.split("\\|");
+            userList.add(new User(splitData[0], splitData[1]));
         }
+        return userList;
     }
 
-    public void write(String name) {
-        String path = "src/" + name + ".txt";
+    public ArrayList<Book> getBooks() {
+        ArrayList<Book> bookList = new ArrayList<>();
+        Scanner sc = openFile("book");
+        while (sc.hasNextLine()){
+            String bookInformation = sc.nextLine();
+            // Your existing logic to split and add to bookList
+            String[] splitData = bookInformation.split("\\|");
+            bookList.add(new Book(splitData[0], splitData[1], splitData[2],
+                    splitData[3], splitData[4], splitData[5]));
+        }
+        return bookList;
+    }
 
+    public void writeUsers(ArrayList<User> list) {
+        String path = "src/user.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
-            if (name.equalsIgnoreCase("book")) {
-                for (Book b : bookList) {
-                    writer.println(b.toString());
-                }
-            } else if (name.equalsIgnoreCase("user")) {
-                for (User u : userList) {
-                    writer.println(u.toString());
-                }
+            for (User u : list) {
+                writer.println(u.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void writeBooks(ArrayList<Book> list) {
+        String path = "src/book.txt";
+        try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
+            for (Book b : list) {
+                writer.println(b.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

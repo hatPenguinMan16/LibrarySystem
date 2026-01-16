@@ -5,7 +5,13 @@ public class Main {
     public static void main(String[] args) {
         User user = new User("Password", "Name");
         InitialBookAdd books = new InitialBookAdd();
-        books.getBooks();
+
+
+        SearchBooks k = new SearchBooks(books.getBookList(), "sldfölkjs");
+        k.goThroughBooks();
+
+        System.out.println("hello");
+
 
     }
 }

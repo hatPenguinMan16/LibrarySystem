@@ -73,7 +73,7 @@ public class Main2 {
 
         // Add titled boxes
         for (int bookIdx = 0; bookIdx < bookList.size(); bookIdx++){
-            boxesContainer.add(createSampleBox("Results Box 1", bookIdx));
+            boxesContainer.add(createSampleBox(bookList.get(bookIdx).getTitle().replace("Title: ", ""), bookIdx));
             boxesContainer.add(Box.createRigidArea(new Dimension(0, 15)));
         }
 

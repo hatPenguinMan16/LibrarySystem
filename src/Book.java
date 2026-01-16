@@ -15,6 +15,11 @@ public class Book {
         this.isbn = isbn;
     }
 
+    @Override
+    public String toString() {
+        return String.join("|", title, author, pages, language, year, isbn);
+    }
+
     public String getTitle() {
         return title;
     }

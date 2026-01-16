@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main2 {
     private ArrayList<Book> bookList = new ArrayList<Book>();
-    private InitialBookAdd bookAdd = new InitialBookAdd();
+    private FileReader bookAdd = new FileReader();
 
 
     public static void main(String[] args) {

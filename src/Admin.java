@@ -13,12 +13,14 @@ public class Admin extends User implements manageBooks{
         return isAdmin;
     }
 
-    void deleteUser(){
-
+    void deleteUser(String name, String password){
+        //If user in list remove
     }
 
-    public void addUser(){
-
+    public void addUser(String name, String password){
+        //Create new user
+        User name = new User("name","password");
+        //Add to list
     }
 
     @Override

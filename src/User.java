@@ -37,6 +37,10 @@ public class User {
         return books;
     }
 
+    public void addUserToList(User user) {
+
+    }
+
     public User(String name, String password) {
         setName(name);
         setPassword(password);

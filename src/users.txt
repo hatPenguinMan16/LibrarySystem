@@ -1,1 +1,5 @@
-Name: adasd | Password: adasd | Type: Admin
+Name: adasd | Password: adasd
+Name: Eskil | Password: 123
+Name: Name | Password: Password
+Name: hej | Password:
+Name: Gustav | Password: 321

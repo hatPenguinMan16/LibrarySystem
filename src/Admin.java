@@ -19,7 +19,7 @@ public class Admin extends User implements manageBooks{
 
     public void addUser(String name, String password){
         //Create new user
-        User name = new User("name","password");
+        //User name = new User("name","password");
         //Add to list
     }
 

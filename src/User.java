@@ -37,6 +37,14 @@ public class User {
         return books;
     }
 
+    public String toString() {
+        return String.join("|", name, password);
+    }
+
+    public void addUserToList(User user) {
+        FileManager.write
+    }
+
     public User(String name, String password) {
         setName(name);
         setPassword(password);

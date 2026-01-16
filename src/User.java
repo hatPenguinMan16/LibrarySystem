@@ -42,7 +42,7 @@ public class User {
     }
 
     public void addUserToList(User user) {
-        FileManager.write
+
     }
 
     public User(String name, String password) {

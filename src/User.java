@@ -42,6 +42,14 @@ public class User {
         setPassword(password);
     }
 
+    public static User[] HardcodedUsers(){
+        User User1 = new User("Eskil", "123");
+        User User2 = new User("Gustav", "321");
+        User User3 = new User("hej", "");
+        User User4 = new User("User", "Password");
+        return new User[] { User1, User2, User3, User4 };
+    }
+
     public void requestBorrow(){
         // Do Stuff
     }

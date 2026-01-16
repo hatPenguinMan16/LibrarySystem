@@ -1,15 +1,15 @@
 public class Authenticator {
-   //private User[] UserList; no need for list, only one user at a time (at this point in the project)
+    //private static User[] UserList; //no need for list, only one user at a time (at this point in the project)
+    static Boolean Flip = false;
 
-
-
-    public void isValidUser(String inputName, String inputPassword, int currentUser){
-        if (UserList[currentUser].getName() == inputName && UserList[currentUser].getPassword() == inputPassword){
-            System.out.println("User is valid!");
+    public static boolean isValidUser(String inputName, String inputPassword, User[] UserList) {
+        for (User currentUser : UserList) {
+            if (currentUser.getName() == inputName && currentUser.getPassword() == inputPassword) {
+                System.out.println("User is valid!");
+                return true;
+            }
         }
-        else{
-            System.out.println("Bad username or password!");
-        }
+        System.out.println("Bad username or password!");
+        return false;
     }
-
 }

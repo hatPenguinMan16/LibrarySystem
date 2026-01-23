@@ -58,7 +58,7 @@ public class Main2 {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        bookList = bookAdd.getBookList();
+        bookList = bookAdd.getBooks();
 
         // Top search bar
         JPanel topPanel = new JPanel();

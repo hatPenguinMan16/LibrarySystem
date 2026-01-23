@@ -38,8 +38,10 @@ public class FileManager {
             String bookInformation = sc.nextLine();
             // Your existing logic to split and add to bookList
             String[] splitData = bookInformation.split("\\|");
-            bookList.add(new Book(splitData[0], splitData[1], splitData[2],
-                    splitData[3], splitData[4], splitData[5]));
+
+            for (int i = 0; i < 6; i++) removeFirstandLast(splitData[i]);
+
+            bookList.add(new Book(splitData[0], splitData[1], splitData[2], splitData[3], splitData[4], splitData[5], splitData[6]));
         }
         return bookList;
     }
@@ -64,5 +66,9 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    String removeFirstandLast(String str) {
+        return str.substring(0, str.length() - 1);
     }
 }

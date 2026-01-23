@@ -5,19 +5,20 @@ public class Book {
     private String language;
     private String year;
     private String isbn;
+    private String borrowed;
 
-    public Book(String title, String author, String pages, String language, String year, String isbn) {
+    public Book(String title, String author, String pages, String language, String year, String isbn, String borrowed) {
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.language = language;
         this.year = year;
         this.isbn = isbn;
+        this.borrowed = borrowed;
     }
 
-    @Override
-    public String toString() {
-        return String.join("|", title, author, pages, language, year, isbn);
+    public String getBorrowed() {
+        return borrowed;
     }
 
     public String getTitle() {

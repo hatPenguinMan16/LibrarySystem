@@ -3,10 +3,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class InitialBookAdd {
+public class InitialBookAddDelete {
     private ArrayList<Book> bookList = new ArrayList<Book>();
 
-    public ArrayList<Book> getBookList() {
+    public ArrayList<Book> getBookListwotu() {
         getBooks();
         return bookList;
     }
@@ -46,12 +46,6 @@ public class InitialBookAdd {
     }
 
     String removeFirstandLast(String str) {
-
-        // Removing the last character
-        // of a string using substring() method
-        str = str.substring(0, str.length() - 1);
-
-        // Return the modified string
-        return str;
+        return str.substring(0, str.length() - 1);
     }
 }

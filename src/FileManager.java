@@ -33,15 +33,21 @@ public class FileManager {
 
     public ArrayList<Book> getBooks() {
         ArrayList<Book> bookList = new ArrayList<>();
-        Scanner sc = openFile("book");
+        Scanner sc = openFile("books");
         while (sc.hasNextLine()){
             String bookInformation = sc.nextLine();
             // Your existing logic to split and add to bookList
             String[] splitData = bookInformation.split("\\|");
 
-            for (int i = 0; i < 6; i++) removeFirstandLast(splitData[i]);
+            for (int i = 0; i < 6; i++){
+                String sentence = splitData[i];
+                StringBuilder sb = new StringBuilder(sentence);
+                sb.deleteCharAt(sb.length() - 1);
+                sentence = sb.toString();
+                splitData[i] = sentence;
+            }
 
-            bookList.add(new Book(splitData[0], splitData[1], splitData[2], splitData[3], splitData[4], splitData[5], splitData[6]));
+            bookList.add(new Book(splitData[0].replace("Title: ", ""), splitData[1].replace(" Author: ", ""), splitData[2].replace(" Pages: ", ""), splitData[3].replace(" Language: ", ""), splitData[4].replace(" Year: ", ""), splitData[5].replace(" ISBN: ", ""), splitData[6].replace(" Borrowed: ", "")));
         }
         return bookList;
     }
@@ -66,9 +72,5 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    String removeFirstandLast(String str) {
-        return str.substring(0, str.length() - 1);
     }
 }

@@ -1,16 +1,23 @@
-import java.lang.classfile.FieldTransform;
+import java.util.ArrayList;
 
 public class Main {
+    // These belong to the OBJECT
+    private ArrayList<Book> bookList = new ArrayList<>();
+    private ArrayList<User> userList = new ArrayList<>();
+    private FileManager fileManager = new FileManager();
+
     public static void main(String[] args) {
-        //User user = new User("Password", "Name");
-        //InitialBookAddDelete books = new InitialBookAddDelete();
-        FileManager books = new FileManager();
+        Main app = new Main();
 
-        DumbSearch k = new DumbSearch(books.getBooks(), "sldfölkjs");
-        k.serach();
+        System.out.println(app.fileManager.getUsers());
+        System.out.println(app.fileManager.getBooks());
 
-        System.out.println("hello");
+        //app.bookList = app.fileManager.getBooks();
+        //System.out.println(app.fileManager.getBooks());
 
-
+        // User newUser = new User("NewGuy", "password123");
+        //System.out.println(app.bookList);
+        //System.out.println(app.bookList);
+        // app.fileManager.writeUsers(app.bookList);
     }
 }

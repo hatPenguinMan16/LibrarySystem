@@ -22,11 +22,19 @@ public class FileManager {
 
     public ArrayList<User> getUsers() {
         ArrayList<User> userList = new ArrayList<>();
-        Scanner sc = openFile("user");
+        Scanner sc = openFile("users");
         while (sc.hasNextLine()){
             String userInformation = sc.nextLine();
+            // Your existing logic to split and add to userList
             String[] splitData = userInformation.split("\\|");
-            userList.add(new User(splitData[0], splitData[1]));
+            for (int i = 0; i < 1; i++){
+                String sentence = splitData[i];
+                StringBuilder sb = new StringBuilder(sentence);
+                sb.deleteCharAt(sb.length() - 1);
+                sentence = sb.toString();
+                splitData[i] = sentence;
+            }
+            userList.add(new User(splitData[0].replace("Name: ", ""), splitData[1].replace(" Password: ", "")));
         }
         return userList;
     }
@@ -53,7 +61,7 @@ public class FileManager {
     }
 
     public void writeUsers(ArrayList<User> list) {
-        String path = "src/user.txt";
+        String path = "src/users.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
             for (User u : list) {
                 writer.println(u.toString());

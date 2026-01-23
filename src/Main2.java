@@ -85,6 +85,8 @@ public class Main2 {
         panel.add(scrollPane, BorderLayout.CENTER);
 
         frame.add(panel);
+
+
     }
 
     private JPanel createSampleBox(String title, int idx) {
@@ -92,12 +94,12 @@ public class Main2 {
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
         boxPanel.setBorder(BorderFactory.createTitledBorder(title));
 
-        boxPanel.add(new JLabel(bookList.get(idx).getTitle()));
-        boxPanel.add(new JLabel(bookList.get(idx).getAuthor()));
-        boxPanel.add(new JLabel(bookList.get(idx).getPages()));
-        boxPanel.add(new JLabel(bookList.get(idx).getLanguage()));
-        boxPanel.add(new JLabel(bookList.get(idx).getYear()));
-        boxPanel.add(new JLabel(bookList.get(idx).getIsbn()));
+        boxPanel.add(new JLabel("Title: " + bookList.get(idx).getTitle()));
+        boxPanel.add(new JLabel("Author: " + bookList.get(idx).getAuthor()));
+        boxPanel.add(new JLabel("Pages" + bookList.get(idx).getPages()));
+        boxPanel.add(new JLabel("Language: " + bookList.get(idx).getLanguage()));
+        boxPanel.add(new JLabel("Year: " + bookList.get(idx).getYear()));
+        boxPanel.add(new JLabel("ISBN: " + bookList.get(idx).getIsbn()));
 
         return boxPanel;
     }

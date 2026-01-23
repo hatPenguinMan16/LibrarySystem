@@ -18,7 +18,12 @@ public class Book {
     }
 
     public String getBorrowed() {
+        this.borrowed = "Yes";
         return borrowed;
+    }
+
+    public String toString() {
+        return String.join(" | ", title, author, pages, language, year, isbn, borrowed);
     }
 
     public String getTitle() {

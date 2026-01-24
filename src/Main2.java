@@ -3,7 +3,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Main2 {
-    private ArrayList<Book> bookList = new ArrayList<Book>();
+    private ArrayList<Book> bookList = new ArrayList<>();
+    private ArrayList<User> userList = new ArrayList<>();
     private FileManager bookAdd = new FileManager();
 
 
@@ -13,6 +14,8 @@ public class Main2 {
 
 
     private void createLoginView() {
+        userList = bookAdd.getUsers();
+
         JFrame frame = new JFrame("Login Window");
         frame.setSize(600, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,11 +49,19 @@ public class Main2 {
         frame.setVisible(true);
 
         loginButton.addActionListener(e -> {
+            String inputUser = usernameField.getText();
+            String inputPass = new String(passwordField.getPassword()); // Get password safely
 
-            frame.getContentPane().removeAll();
-            createSearchView(frame);
-            frame.revalidate();
-            frame.repaint();
+            boolean accessGranted = Authenticator.isValidUser(inputUser, inputPass, userList);
+
+            if (accessGranted) {
+                frame.getContentPane().removeAll();
+                createSearchView(frame);
+                frame.revalidate();
+                frame.repaint();
+            } else {
+                JOptionPane.showMessageDialog(frame, "Wrong username or password!", "Login Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
 

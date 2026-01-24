@@ -1,13 +1,15 @@
+import java.util.ArrayList;
+
+
 public class User {
     protected String name;
     private String password;
-    private String[] borrowed;
-    private String[] books;
+    private ArrayList<String> borrowedBooks = new ArrayList<String>();
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
-        //this.borrowed = null;
+        this.borrowedBooks = new ArrayList<>();
     }
 
     public int getDaysLeft() {
@@ -36,12 +38,13 @@ public class User {
         return password;
     }
 
-    public void setBooks(String[] books) {
-        this.books = books;
+    public ArrayList<String> getBorrowedBooks() {
+        return borrowedBooks;
     }
 
-    public String[] getBooks() {
-        return books;
+    public void setBorrowedBooks(ArrayList<String> borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
+
     }
 
     public String toString() {
@@ -52,9 +55,10 @@ public class User {
 
     }
 
-    public void requestBorrow(Book book){
-
-        // Do Stuff
+    public void requestBorrow(Book book) {
+        String bookTitle = book.getTitle();
+        this.borrowedBooks.add(bookTitle);
+        book.borrowed = "Yes";
     }
 }
 

@@ -25,7 +25,6 @@ public class FileManager {
         Scanner sc = openFile("users");
         while (sc.hasNextLine()){
             String userInformation = sc.nextLine();
-            // Your existing logic to split and add to userList
             String[] splitData = userInformation.split("\\|");
             for (int i = 0; i < 1; i++){
                 String sentence = splitData[i];
@@ -34,7 +33,9 @@ public class FileManager {
                 sentence = sb.toString();
                 splitData[i] = sentence;
             }
-            userList.add(new User(splitData[0].replace("Name: ", ""), splitData[1].replace(" Password: ", "")));
+            userList.add(new User(
+                    splitData[0].replace("Name: ", "").trim(),
+                    splitData[1].replace("Password: ", "").trim()));
         }
         return userList;
     }
@@ -44,7 +45,6 @@ public class FileManager {
         Scanner sc = openFile("books");
         while (sc.hasNextLine()){
             String bookInformation = sc.nextLine();
-            // Your existing logic to split and add to bookList
             String[] splitData = bookInformation.split("\\|");
 
             for (int i = 0; i < 6; i++){
@@ -55,7 +55,15 @@ public class FileManager {
                 splitData[i] = sentence;
             }
 
-            bookList.add(new Book(splitData[0].replace("Title: ", ""), splitData[1].replace(" Author: ", ""), splitData[2].replace(" Pages: ", ""), splitData[3].replace(" Language: ", ""), splitData[4].replace(" Year: ", ""), splitData[5].replace(" ISBN: ", ""), splitData[6].replace(" Borrowed: ", "")));
+            bookList.add(new Book(
+                    splitData[0].replace("Title: ", "").trim(),
+                    splitData[1].replace(" Author: ", "").trim(),
+                    splitData[2].replace(" Pages: ", "").trim(),
+                    splitData[3].replace(" Language: ", "").trim(),
+                    splitData[4].replace(" Year: ", "").trim(),
+                    splitData[5].replace(" ISBN: ", "").trim(),
+                    splitData[6].replace(" Borrowed: ", "").trim()
+            ));
         }
         return bookList;
     }

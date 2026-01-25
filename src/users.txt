@@ -1,6 +1,6 @@
-Name: adasd | Password: adasd
-Name: Eskil | Password: 123
-Name: Name | Password: Password
-Name: hej | Password: nej
-Name: Gustav | Password: 321
-Name: NewGuy | Password: password123
+adasd | adasd
+Eskil | 123
+Name | Password
+hej | nej
+Gustav | 321
+NewGuy | password123

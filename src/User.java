@@ -48,7 +48,11 @@ public class User {
     }
 
     public String toString() {
-        return String.join(" | ", name, password);
+        String bookString = "None";
+        if (!borrowedBooks.isEmpty()) {
+            bookString = String.join(",", borrowedBooks);
+        }
+        return "Name: " + name + " | Password: " + password + " | Borrowed: " + bookString;
     }
 
     public void addUserToList(User user) {

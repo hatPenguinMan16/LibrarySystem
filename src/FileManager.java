@@ -23,19 +23,27 @@ public class FileManager {
     public ArrayList<User> getUsers() {
         ArrayList<User> userList = new ArrayList<>();
         Scanner sc = openFile("users");
-        while (sc.hasNextLine()){
+
+        while (sc.hasNextLine()) {
             String userInformation = sc.nextLine();
             String[] splitData = userInformation.split("\\|");
-            for (int i = 0; i < 1; i++){
-                String sentence = splitData[i];
-                StringBuilder sb = new StringBuilder(sentence);
-                sb.deleteCharAt(sb.length() - 1);
-                sentence = sb.toString();
-                splitData[i] = sentence;
+            if (splitData.length >= 2) {
+                String name = splitData[0].replace("Name:", "").trim();
+                String pass = splitData[1].replace("Password:", "").trim();
+                User user = new User(name, pass);
+
+                if (splitData.length >= 3) {
+                    String rawBooks = splitData[2].replace("Borrowed:", "").trim();
+
+                    if (!rawBooks.equals("None") && !rawBooks.isEmpty()) {
+                        String[] bookTitles = rawBooks.split(",");
+                        for (String title : bookTitles) {
+                            user.getBorrowedBooks().add(title.trim());
+                        }
+                    }
+                }
+                userList.add(user);
             }
-            userList.add(new User(
-                    splitData[0].replace("Name: ", "").trim(),
-                    splitData[1].replace("Password: ", "").trim()));
         }
         return userList;
     }

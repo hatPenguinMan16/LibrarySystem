@@ -19,11 +19,18 @@ public class Book {
 
     public String getBorrowed() { return borrowed; }
 
-    public void setBorrowed() {
+    public void setBorrowed(String status) {
+        this.borrowed = status;
     }
 
     public String toString() {
-        return String.join(" | ", title, author, pages, language, year, isbn, borrowed);
+        return "Title: " + title +
+                " | Author: " + author +
+                " | Pages: " + pages +
+                " | Language: " + language +
+                " | Year: " + year +
+                " | ISBN: " + isbn +
+                " | Borrowed: " + borrowed;
     }
 
     public String getTitle() {

@@ -114,44 +114,63 @@ public class Main2 {
         frame.add(panel);
     }
 
-    private JPanel createSampleBox(String title, int idx, User currentUser) {
-        JPanel boxPanel = new JPanel();
-        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
-        boxPanel.setBorder(BorderFactory.createTitledBorder(title));
-
-        boxPanel.add(new JLabel("Author: " + bookList.get(idx).getAuthor()));
-        boxPanel.add(new JLabel("Pages: " + bookList.get(idx).getPages()));
-        boxPanel.add(new JLabel("Language: " + bookList.get(idx).getLanguage()));
-        boxPanel.add(new JLabel("Language: " + bookList.get(idx).getBorrowed()));
-
-        JButton borrowButton = new JButton("Borrow");
-
-        Book currentBook = bookList.get(idx);
-
-        if (currentUser.getBorrowedBooks().contains(currentBook.getTitle())) {
-            borrowButton.setEnabled(false);
-            borrowButton.setText("Already Borrowed");
-        }
-
-        borrowButton.addActionListener(e -> {
-            currentUser.requestBorrow(currentBook);
-
-            bookAdd.writeUsers(userList);
-
-            JOptionPane.showMessageDialog(boxPanel, "You have borrowed: " + title);
-            borrowButton.setEnabled(false);
-            borrowButton.setText("Borrowed");
-        });
-
-        boxPanel.add(Box.createVerticalStrut(10));
-        boxPanel.add(borrowButton);
-
-        return boxPanel;
-    }
-
     private Component centerComponent(Component comp) {
         JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
         wrapper.add(comp);
         return wrapper;
+    }
+
+    private JPanel createSampleBox(String title, int idx, User currentUser) {
+        JPanel boxPanel = new JPanel();
+        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
+        boxPanel.setBorder(BorderFactory.createTitledBorder(title));
+        boxPanel.add(new JLabel("Author: " + bookList.get(idx).getAuthor()));
+        boxPanel.add(new JLabel("Pages: " + bookList.get(idx).getPages()));
+        boxPanel.add(new JLabel("Language: " + bookList.get(idx).getLanguage()));
+
+        JButton actionButton = new JButton();
+        Book currentBook = bookList.get(idx);
+
+        if (currentUser.getBorrowedBooks().contains(currentBook.getTitle())) {
+            actionButton.setText("Return");
+            actionButton.addActionListener(e -> {
+                currentUser.getBorrowedBooks().remove(currentBook.getTitle());
+
+                currentBook.setBorrowed("false");
+
+                bookAdd.writeUsers(userList);
+                bookAdd.writeBooks(bookList);
+
+                JOptionPane.showMessageDialog(boxPanel, "Returned: " + currentBook.getTitle());
+
+                actionButton.setEnabled(false);
+                actionButton.setText("Returned");
+            });
+        }
+        else if (currentBook.getBorrowed().trim().equalsIgnoreCase("true")) {
+            actionButton.setText("Unavailable");
+            actionButton.setEnabled(false);
+        }
+
+        else {
+            actionButton.setText("Borrow");
+            actionButton.addActionListener(e -> {
+                currentUser.requestBorrow(currentBook);
+
+                currentBook.setBorrowed("true");
+
+                bookAdd.writeUsers(userList);
+                bookAdd.writeBooks(bookList);
+
+                JOptionPane.showMessageDialog(boxPanel, "You borrowed: " + currentBook.getTitle());
+                actionButton.setEnabled(false);
+                actionButton.setText("Borrowed");
+            });
+        }
+
+        boxPanel.add(Box.createVerticalStrut(10));
+        boxPanel.add(actionButton);
+
+        return boxPanel;
     }
 }

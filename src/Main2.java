@@ -130,25 +130,26 @@ public class Main2 {
 
         JButton actionButton = new JButton();
         Book currentBook = bookList.get(idx);
+        String isBorrowed = currentBook.getBorrowed().trim();
 
         if (currentUser.getBorrowedBooks().contains(currentBook.getTitle())) {
             actionButton.setText("Return");
             actionButton.addActionListener(e -> {
                 currentUser.getBorrowedBooks().remove(currentBook.getTitle());
-
                 currentBook.setBorrowed("false");
 
                 bookAdd.writeUsers(userList);
                 bookAdd.writeBooks(bookList);
 
-                JOptionPane.showMessageDialog(boxPanel, "Returned: " + currentBook.getTitle());
-
+                JOptionPane.showMessageDialog(boxPanel, "Returned!");
                 actionButton.setEnabled(false);
                 actionButton.setText("Returned");
             });
         }
-        else if (currentBook.getBorrowed().trim().equalsIgnoreCase("true")) {
+
+        else if (isBorrowed.equalsIgnoreCase("true") || isBorrowed.equalsIgnoreCase("Yes")) {
             actionButton.setText("Unavailable");
+            actionButton.setForeground(Color.RED);
             actionButton.setEnabled(false);
         }
 
@@ -156,13 +157,12 @@ public class Main2 {
             actionButton.setText("Borrow");
             actionButton.addActionListener(e -> {
                 currentUser.requestBorrow(currentBook);
-
                 currentBook.setBorrowed("true");
 
                 bookAdd.writeUsers(userList);
                 bookAdd.writeBooks(bookList);
 
-                JOptionPane.showMessageDialog(boxPanel, "You borrowed: " + currentBook.getTitle());
+                JOptionPane.showMessageDialog(boxPanel, "Borrowed!");
                 actionButton.setEnabled(false);
                 actionButton.setText("Borrowed");
             });

@@ -88,7 +88,8 @@ public class FileManager {
     }
 
     public void writeBooks(ArrayList<Book> list) {
-        String path = "src/book.txt";
+        String path = "src/books.txt";
+
         try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
             for (Book b : list) {
                 writer.println(b.toString());

@@ -13,7 +13,7 @@
         @Override
         public ArrayList<Book> search() {
 
-            //TODO: Change print title to display to GUI, Smarter search
+            //TODO: Smarter search
 
             for (Book b : this.bookList) {
                 boolean match = false;

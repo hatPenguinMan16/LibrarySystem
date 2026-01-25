@@ -62,7 +62,7 @@ public class User {
     public void requestBorrow(Book book) {
         String bookTitle = book.getTitle();
         this.borrowedBooks.add(bookTitle);
-        book.borrowed = "Yes";
+        book.setBorrowed("true");
     }
 }
 

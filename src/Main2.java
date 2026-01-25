@@ -42,10 +42,6 @@ public class Main2 {
             String inputUser = usernameField.getText();
             String inputPass = new String(passwordField.getPassword());
 
-            System.out.println("Typing: " + inputUser);
-            System.out.println("Typing: " + inputPass);
-            System.out.println("Available Users: " + userList);
-
             User loggedInUser = Authenticator.login(inputUser, inputPass, userList);
 
             if (loggedInUser != null) {
@@ -80,6 +76,26 @@ public class Main2 {
         JPanel boxesContainer = new JPanel();
         boxesContainer.setLayout(new BoxLayout(boxesContainer, BoxLayout.Y_AXIS));
 
+        searchButton.addActionListener(e -> {
+            String searchMsg = searchField.getText();
+
+            DumbSearch searchEngine = new DumbSearch(bookList, searchMsg);
+            ArrayList<Book> results = searchEngine.search();
+
+            boxesContainer.removeAll();
+
+            for (Book b : results) {
+                int originalIndex = bookList.indexOf(b);
+
+                String cleanTitle = b.getTitle().replace("Title:", "").trim();
+
+                boxesContainer.add(createSampleBox(cleanTitle, originalIndex, currentUser));
+                boxesContainer.add(Box.createRigidArea(new Dimension(0, 15)));
+            }
+            boxesContainer.revalidate();
+            boxesContainer.repaint();
+        });
+
         for (int bookIdx = 0; bookIdx < bookList.size(); bookIdx++){
             String rawTitle = bookList.get(bookIdx).getTitle();
             String cleanTitle = rawTitle.replace("Title:", "").trim();
@@ -106,6 +122,7 @@ public class Main2 {
         boxPanel.add(new JLabel("Author: " + bookList.get(idx).getAuthor()));
         boxPanel.add(new JLabel("Pages: " + bookList.get(idx).getPages()));
         boxPanel.add(new JLabel("Language: " + bookList.get(idx).getLanguage()));
+        boxPanel.add(new JLabel("Language: " + bookList.get(idx).getBorrowed()));
 
         JButton borrowButton = new JButton("Borrow");
 

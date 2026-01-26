@@ -46,6 +46,7 @@ public class Main2 {
         frame.setVisible(true);
 
         loginButton.addActionListener(e -> {
+            String userName = usernameField.getText();
 
             frame.getContentPane().removeAll();
             createSearchView(frame);

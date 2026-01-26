@@ -15,12 +15,12 @@ public class DumbSearch implements SearchMotor{
 
         //TODO: Change print title to display to GUI
         for (int idx = 0; idx < this.bookList.size(); idx++) {
-            if (this.bookList.get(idx).getTitle().replace("Title: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
-            if (this.bookList.get(idx).getAuthor().replace("Author: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
-            if (this.bookList.get(idx).getLanguage().replace("Language: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
+            if (this.bookList.get(idx).getTitle().replace("Title: ", "").equalsIgnoreCase(searchMsg)) retBooks.add(this.bookList.get(idx));
+            if (this.bookList.get(idx).getAuthor().replace("Author: ", "").equalsIgnoreCase(searchMsg)) retBooks.add(this.bookList.get(idx));
+            if (this.bookList.get(idx).getLanguage().replace("Language: ", "").equalsIgnoreCase(searchMsg)) retBooks.add(this.bookList.get(idx));
             if (this.bookList.get(idx).getYear().replace("Year: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
             if (this.bookList.get(idx).getIsbn().replace("ISBN: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
-            if (this.bookList.get(idx).getBorrowed().replace("Borrowed: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
+            if (this.bookList.get(idx).getBorrowed().replace("Borrowed: ", "").equalsIgnoreCase(searchMsg)) retBooks.add(this.bookList.get(idx));
 
         }
     }

@@ -23,18 +23,27 @@ public class FileManager {
     public ArrayList<User> getUsers() {
         ArrayList<User> userList = new ArrayList<>();
         Scanner sc = openFile("users");
-        while (sc.hasNextLine()){
+
+        while (sc.hasNextLine()) {
             String userInformation = sc.nextLine();
-            // Your existing logic to split and add to userList
             String[] splitData = userInformation.split("\\|");
-            for (int i = 0; i < 1; i++){
-                String sentence = splitData[i];
-                StringBuilder sb = new StringBuilder(sentence);
-                sb.deleteCharAt(sb.length() - 1);
-                sentence = sb.toString();
-                splitData[i] = sentence;
+            if (splitData.length >= 2) {
+                String name = splitData[0].replace("Name:", "").trim();
+                String pass = splitData[1].replace("Password:", "").trim();
+                User user = new User(name, pass);
+
+                if (splitData.length >= 3) {
+                    String rawBooks = splitData[2].replace("Borrowed:", "").trim();
+
+                    if (!rawBooks.equals("None") && !rawBooks.isEmpty()) {
+                        String[] bookTitles = rawBooks.split(",");
+                        for (String title : bookTitles) {
+                            user.getBorrowedBooks().add(title.trim());
+                        }
+                    }
+                }
+                userList.add(user);
             }
-            userList.add(new User(splitData[0].replace("Name: ", ""), splitData[1].replace(" Password: ", "")));
         }
         return userList;
     }
@@ -44,7 +53,6 @@ public class FileManager {
         Scanner sc = openFile("books");
         while (sc.hasNextLine()){
             String bookInformation = sc.nextLine();
-            // Your existing logic to split and add to bookList
             String[] splitData = bookInformation.split("\\|");
 
             for (int i = 0; i < 6; i++){
@@ -55,7 +63,15 @@ public class FileManager {
                 splitData[i] = sentence;
             }
 
-            bookList.add(new Book(splitData[0].replace("Title: ", ""), splitData[1].replace(" Author: ", ""), splitData[2].replace(" Pages: ", ""), splitData[3].replace(" Language: ", ""), splitData[4].replace(" Year: ", ""), splitData[5].replace(" ISBN: ", ""), splitData[6].replace(" Borrowed: ", "")));
+            bookList.add(new Book(
+                    splitData[0].replace("Title: ", "").trim(),
+                    splitData[1].replace(" Author: ", "").trim(),
+                    splitData[2].replace(" Pages: ", "").trim(),
+                    splitData[3].replace(" Language: ", "").trim(),
+                    splitData[4].replace(" Year: ", "").trim(),
+                    splitData[5].replace(" ISBN: ", "").trim(),
+                    splitData[6].replace(" Borrowed: ", "").trim()
+            ));
         }
         return bookList;
     }
@@ -72,7 +88,8 @@ public class FileManager {
     }
 
     public void writeBooks(ArrayList<Book> list) {
-        String path = "src/book.txt";
+        String path = "src/books.txt";
+
         try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
             for (Book b : list) {
                 writer.println(b.toString());

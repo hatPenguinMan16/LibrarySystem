@@ -5,7 +5,7 @@ public class Book {
     private String language;
     private String year;
     private String isbn;
-    private String borrowed;
+    protected String borrowed;
 
     public Book(String title, String author, String pages, String language, String year, String isbn, String borrowed) {
         this.title = title;
@@ -17,10 +17,20 @@ public class Book {
         this.borrowed = borrowed;
     }
 
-    public String getBorrowed() {return borrowed;}
+    public String getBorrowed() { return borrowed; }
+
+    public void setBorrowed(String status) {
+        this.borrowed = status;
+    }
 
     public String toString() {
-        return String.join(" | ", title, author, pages, language, year, isbn, borrowed);
+        return "Title: " + title +
+                " | Author: " + author +
+                " | Pages: " + pages +
+                " | Language: " + language +
+                " | Year: " + year +
+                " | ISBN: " + isbn +
+                " | Borrowed: " + borrowed;
     }
 
     public String getTitle() {

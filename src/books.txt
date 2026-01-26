@@ -1,6 +1,6 @@
-Title: The Chronos Directive | Author: Evelyn Reed | Pages: 412 | Language: English | Year: 2018 | ISBN: 978-1548765432 | Borrowed: false
+Title: The Chronos Directive | Author: Evelyn Reed | Pages: 412 | Language: English | Year: 2018 | ISBN: 978-1548765432 | Borrowed: true
 Title: Whispers of the Forgotten Isle | Author: Mateo Vargas | Pages: 305 | Language: English | Year: 2021 | ISBN: 978-0399593457 | Borrowed: true
-Title: Silicon Shadows | Author: Aiko Tanaka | Pages: 588 | Language: English | Year: 2019 | ISBN: 978-1984801939 | Borrowed: true
+Title: Silicon Shadows | Author: Aiko Tanaka | Pages: 588 | Language: English | Year: 2019 | ISBN: 978-1984801939 | Borrowed: false
 Title: The Alchemist's Secret | Author: Liam O'Connell | Pages: 275 | Language: English | Year: 2005 | ISBN: 978-0061120084 | Borrowed: true
 Title: Beneath the Scarlet Moon | Author: Zara Khan | Pages: 620 | Language: English | Year: 2023 | ISBN: 978-1338878925 | Borrowed: false
 Title: City of Rust and Steam | Author: Daniel Chen | Pages: 350 | Language: English | Year: 2017 | ISBN: 978-1250311202 | Borrowed: true
@@ -16,5 +16,5 @@ Title: Starfall Academy for Wayward Ghosts | Author: Jasper Cole | Pages: 365 | 
 Title: The Codebreaker's Daughter | Author: Katerina Schmidt | Pages: 550 | Language: English | Year: 2019 | ISBN: 978-1984820251 | Borrowed: false
 Title: Rivers of Unspoken Words | Author: Kwame Adewale | Pages: 295 | Language: English | Year: 2017 | ISBN: 978-0385542037 | Borrowed: false
 Title: The Clockwork Heart of Venice | Author: Vittoria Rossi | Pages: 470 | Language: English | Year: 2022 | ISBN: 978-0063229672 | Borrowed: false
-Title: The Desert Bloom Conspiracy | Author: Saeed Al-Mansoori | Pages: 325 | Language: English | Year: 2015 | ISBN: 978-1509831525 | Borrowed: false
+Title: The Desert Bloom Conspiracy | Author: Saeed Al-Mansoori | Pages: 325 | Language: English | Year: 2015 | ISBN: 978-1509831525 | Borrowed: true
 Title: Zero-Gravity Waltz | Author: Jun Park | Pages: 400 | Language: English | Year: 2020 | ISBN: 978-1250269372 | Borrowed: false

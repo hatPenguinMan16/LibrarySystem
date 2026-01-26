@@ -10,10 +10,18 @@ public class DumbSearch implements SearchMotor{
         this.searchMsg = searchMsg;
     }
 
-    @Override
-    public void serach() {
+    public ArrayList<Book> getRetBooks() {
+        return retBooks;
+    }
 
-        //TODO: Change print title to display to GUI
+    @Override
+    public void search() {
+        if (searchMsg.equalsIgnoreCase("")){
+            retBooks = bookList;
+            return;
+        }
+
+            //TODO: Change print title to display to GUI
         for (int idx = 0; idx < this.bookList.size(); idx++) {
             if (this.bookList.get(idx).getTitle().replace("Title: ", "").equalsIgnoreCase(searchMsg)) retBooks.add(this.bookList.get(idx));
             if (this.bookList.get(idx).getAuthor().replace("Author: ", "").equalsIgnoreCase(searchMsg)) retBooks.add(this.bookList.get(idx));
@@ -21,7 +29,6 @@ public class DumbSearch implements SearchMotor{
             if (this.bookList.get(idx).getYear().replace("Year: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
             if (this.bookList.get(idx).getIsbn().replace("ISBN: ", "").equals(searchMsg)) retBooks.add(this.bookList.get(idx));
             if (this.bookList.get(idx).getBorrowed().replace("Borrowed: ", "").equalsIgnoreCase(searchMsg)) retBooks.add(this.bookList.get(idx));
-
         }
     }
 }

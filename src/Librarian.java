@@ -5,7 +5,11 @@ public class Librarian extends User implements manageBooks{
 
     @Override
     public void addBook() {
-
+        String[] tempBookInfo = {"","","","","",""};
+        for (int i = 0; i < 5; i++){
+            // add input from terminal
+            // maybe from file insted?
+        }
     }
 
     @Override

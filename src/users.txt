@@ -1,5 +1,5 @@
 Name: adasd | Password: adasd | Borrowed: None
-Name: Eskil | Password: 123 | Borrowed: Silicon Shadows
+Name: Eskil | Password: 123 | Borrowed: The Desert Bloom Conspiracy,The Chronos Directive
 Name: Name | Password: Password | Borrowed: City of Rust and Steam
 Name: hej | Password: nej | Borrowed: The Alchemist's Secret
 Name: Gustav | Password: 321 | Borrowed: Whispers of the Forgotten Isle

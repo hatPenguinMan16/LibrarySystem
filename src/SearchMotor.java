@@ -1,3 +1,3 @@
 public interface SearchMotor {
-    void serach();
+    void search();
 }

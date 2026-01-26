@@ -98,4 +98,9 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    public void addBookToBookList(String[] arg){
+        // For librarian to add books to system
+        Book newBook = new Book(arg[0],arg[1],arg[2],arg[3],arg[4],arg[5], "false");
+    }
 }

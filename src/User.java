@@ -55,10 +55,6 @@ public class User {
         return "Name: " + name + " | Password: " + password + " | Borrowed: " + bookString;
     }
 
-    public void addUserToList(User user) {
-
-    }
-
     public void requestBorrow(Book book) {
         String bookTitle = book.getTitle();
         this.borrowedBooks.add(bookTitle);

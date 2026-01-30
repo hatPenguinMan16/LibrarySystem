@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Main2 {
@@ -12,11 +13,10 @@ public class Main2 {
     }
 
     private void createLoginView() {
-        // Load existing users from file
         userList = bookAdd.getUsers();
 
         JFrame frame = new JFrame("Library System - Login");
-        frame.setSize(600, 800);
+        frame.setSize(600, 800); // Adjusted size for better visibility
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
@@ -35,7 +35,6 @@ public class Main2 {
         panel.add(centerComponent(passwordField));
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(centerComponent(loginButton));
-        panel.add(centerComponent(registerButton)); // Added this!
         panel.add(Box.createVerticalGlue());
 
         frame.add(panel);
@@ -44,40 +43,37 @@ public class Main2 {
         loginButton.addActionListener(e -> {
             String inputUser = usernameField.getText();
             String inputPass = new String(passwordField.getPassword());
+
             User loggedInUser = Authenticator.login(inputUser, inputPass, userList);
 
             if (loggedInUser != null) {
-                switchView(frame, loggedInUser);
+                frame.getContentPane().removeAll();
+                createSearchView(frame, loggedInUser);
+                frame.revalidate();
+                frame.repaint();
             } else {
                 JOptionPane.showMessageDialog(frame, "Wrong name or password!");
             }
         });
 
         registerButton.addActionListener(e -> {
+            ArrayList<User> tempUserList = new ArrayList<User>();
             String inputUser = usernameField.getText();
             String inputPass = new String(passwordField.getPassword());
 
             User newUser = new User(inputUser, inputPass);
-            userList.add(newUser);
-            bookAdd.writeUsers(userList);
 
-            if(newUser != null){
+            bookAdd.writeUsers(tempUserList);
+
+            if (loggedInUser != null) {
                 frame.getContentPane().removeAll();
-                createLoginView();
+                createSearchView(frame, loggedInUser);
                 frame.revalidate();
                 frame.repaint();
+            } else {
+                JOptionPane.showMessageDialog(frame, "Wrong name or password!");
             }
         });
-
-
-    }
-
-    // Helper to swap views easily
-    private void switchView(JFrame frame, User user) {
-        frame.getContentPane().removeAll();
-        createSearchView(frame, user);
-        frame.revalidate();
-        frame.repaint();
     }
 
     private void createSearchView(JFrame frame, User currentUser) {
@@ -85,8 +81,9 @@ public class Main2 {
         bookList = bookAdd.getBooks();
 
         JPanel topPanel = new JPanel();
-        JLabel userLabel = new JLabel("User: " + currentUser.getName());
+        JLabel userLabel = new JLabel("Logged in as: " + currentUser.getName());
         userLabel.setForeground(Color.BLUE);
+        userLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
         JTextField searchField = new JTextField(15);
         JButton searchButton = new JButton("Search");
@@ -100,34 +97,37 @@ public class Main2 {
         JPanel boxesContainer = new JPanel();
         boxesContainer.setLayout(new BoxLayout(boxesContainer, BoxLayout.Y_AXIS));
 
-        displayBooks(boxesContainer, bookList, currentUser, frame);
+        // Initial load of books
+        displayBooks(boxesContainer, bookList, currentUser);
 
         searchButton.addActionListener(e -> {
             String searchMsg = searchField.getText();
             DumbSearch searchEngine = new DumbSearch(bookList, searchMsg);
             searchEngine.search();
-            displayBooks(boxesContainer, searchEngine.getRetBooks(), currentUser, frame);
+            displayBooks(boxesContainer, searchEngine.getRetBooks(), currentUser);
         });
 
         myLoansButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
-            createLoanView(frame, currentUser);
+            createLoanView(frame, currentUser); // Passed currentUser here
             frame.revalidate();
             frame.repaint();
         });
 
+        JScrollPane scrollPane = new JScrollPane(boxesContainer);
         panel.add(topPanel, BorderLayout.NORTH);
-        panel.add(new JScrollPane(boxesContainer), BorderLayout.CENTER);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         frame.add(panel);
         frame.revalidate();
     }
 
-    private void displayBooks(JPanel container, ArrayList<Book> booksToDisplay, User currentUser, JFrame frame) {
+    // Helper to refresh book list in search or loans
+    private void displayBooks(JPanel container, ArrayList<Book> booksToDisplay, User currentUser) {
         container.removeAll();
         for (Book b : booksToDisplay) {
             String cleanTitle = b.getTitle().replace("Title:", "").trim();
-            container.add(createSampleBox(cleanTitle, b, currentUser, frame));
+            container.add(createSampleBox(cleanTitle, b, currentUser));
             container.add(Box.createRigidArea(new Dimension(0, 15)));
         }
         container.revalidate();
@@ -136,37 +136,54 @@ public class Main2 {
 
     private void createLoanView(JFrame frame, User currentUser) {
         JPanel loanPanel = new JPanel(new BorderLayout());
+
         JPanel headerPanel = new JPanel();
+        JLabel titleText = new JLabel("MY LOANS");
         JButton homePageButton = new JButton("Back to Home");
-        headerPanel.add(new JLabel("MY LOANS"));
+
+        headerPanel.add(titleText);
         headerPanel.add(homePageButton);
 
         JPanel boxesContainer = new JPanel();
         boxesContainer.setLayout(new BoxLayout(boxesContainer, BoxLayout.Y_AXIS));
 
+        // Logic to show ONLY borrowed books
         ArrayList<Book> borrowedList = new ArrayList<>();
         for (Book b : bookList) {
             if (currentUser.getBorrowedBooks().contains(b.getTitle())) {
                 borrowedList.add(b);
             }
         }
-        displayBooks(boxesContainer, borrowedList, currentUser, frame);
+        displayBooks(boxesContainer, borrowedList, currentUser);
 
         loanPanel.add(headerPanel, BorderLayout.NORTH);
         loanPanel.add(new JScrollPane(boxesContainer), BorderLayout.CENTER);
 
         frame.add(loanPanel);
 
-        homePageButton.addActionListener(e -> switchView(frame, currentUser));
+        homePageButton.addActionListener(e -> {
+            frame.getContentPane().removeAll();
+            createSearchView(frame, currentUser); // Fixed: Added currentUser
+            frame.revalidate();
+            frame.repaint();
+        });
     }
 
-    private JPanel createSampleBox(String title, Book currentBook, User currentUser, JFrame frame) {
+    private Component centerComponent(Component comp) {
+        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        wrapper.add(comp);
+        return wrapper;
+    }
+
+    private JPanel createSampleBox(String title, Book currentBook, User currentUser) {
         JPanel boxPanel = new JPanel();
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
         boxPanel.setBorder(BorderFactory.createTitledBorder(title));
 
         boxPanel.add(new JLabel("Author: " + currentBook.getAuthor()));
         boxPanel.add(new JLabel("Pages: " + currentBook.getPages()));
+        boxPanel.add(new JLabel("Language: " + currentBook.getLanguage()));
+        boxPanel.add(new JLabel("Year: " + currentBook.getYear()));
 
         JButton actionButton = new JButton();
         String isBorrowed = currentBook.getBorrowed().trim();
@@ -177,11 +194,12 @@ public class Main2 {
                 currentUser.getBorrowedBooks().remove(currentBook.getTitle());
                 currentBook.setBorrowed("false");
                 saveData();
-                JOptionPane.showMessageDialog(frame, "Book Returned!");
-                switchView(frame, currentUser); // Refresh view
+                JOptionPane.showMessageDialog(boxPanel, "Book Returned!");
+                actionButton.setEnabled(false);
             });
         } else if (isBorrowed.equalsIgnoreCase("true") || isBorrowed.equalsIgnoreCase("Yes")) {
             actionButton.setText("Unavailable");
+            actionButton.setForeground(Color.RED);
             actionButton.setEnabled(false);
         } else {
             actionButton.setText("Borrow");
@@ -189,11 +207,12 @@ public class Main2 {
                 currentUser.requestBorrow(currentBook);
                 currentBook.setBorrowed("true");
                 saveData();
-                JOptionPane.showMessageDialog(frame, "Borrowed!");
-                switchView(frame, currentUser); // Refresh view
+                JOptionPane.showMessageDialog(boxPanel, "Borrowed successfully!");
+                actionButton.setEnabled(false);
             });
         }
 
+        boxPanel.add(Box.createVerticalStrut(10));
         boxPanel.add(actionButton);
         return boxPanel;
     }
@@ -201,12 +220,5 @@ public class Main2 {
     private void saveData() {
         bookAdd.writeUsers(userList);
         bookAdd.writeBooks(bookList);
-    }
-
-    private Component centerComponent(Component comp) {
-        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        wrapper.setOpaque(false);
-        wrapper.add(comp);
-        return wrapper;
     }
 }

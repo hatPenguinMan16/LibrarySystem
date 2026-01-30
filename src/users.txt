@@ -1,2 +1,6 @@
-Name: hej | Password: nej | Borrowed: None
-
+Name: adasd | Password: adasd | Borrowed: None
+Name: Eskil | Password: 123 | Borrowed: The Desert Bloom Conspiracy,The Chronos Directive
+Name: Name | Password: Password | Borrowed: City of Rust and Steam
+Name: hej | Password: nej | Borrowed: A Hundred Years of Rain,The Alchemist's Secret,Silicon Shadows
+Name: Gustav | Password: 321 | Borrowed: Whispers of the Forgotten Isle
+Name: NewGuy | Password: password123 | Borrowed: None

@@ -2,13 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Main2 {
+public class Main67 {
     private ArrayList<Book> bookList = new ArrayList<>();
     private ArrayList<User> userList = new ArrayList<>();
     private FileManager bookAdd = new FileManager();
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Main2().createLoginView());
+        SwingUtilities.invokeLater(() -> new Main67().createLoginView());
     }
 
     private void createLoginView() {
